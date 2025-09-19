@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baseball Tactics: Baseball IQ Trainer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        touch-action: none; /* Prevents scrolling on mobile while dragging */
+      }
+      .baseball-field {
+        position: relative;
+        width: 100%;
+        max-width: 700px;
+        aspect-ratio: 1 / 1;
+        background-color: #4a934a; /* Green grass */
+        border-radius: 0 0 50% 50%;
+        margin: auto;
+        border: 4px solid #8b4513; /* Brown dirt */
+        overflow: hidden;
+      }
+      .infield-dirt {
+        position: absolute;
+        width: 65%;
+        height: 65%;
+        background-color: #d2b48c; /* Tan dirt */
+        left: 50%;
+        top: 45%;
+        transform: translateX(-50%) rotate(45deg);
+        border-radius: 15%;
+      }
+      .base {
+        position: absolute;
+        width: 5%;
+        height: 5%;
+        background-color: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      }
+      #home-plate {
+        width: 5%;
+        height: 5%;
+        background-color: white;
+        position: absolute;
+        bottom: 5%;
+        left: 47.5%;
+        clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
+      }
+      #first-base {
+        top: 50%;
+        right: 25%;
+        transform: translateY(-50%) rotate(45deg);
+      }
+      #second-base {
+        top: 25%;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+      }
+      #third-base {
+        top: 50%;
+        left: 25%;
+        transform: translateY(-50%) rotate(45deg);
+      }
+      .pitchers-mound {
+        position: absolute;
+        width: 12%;
+        height: 12%;
+        background-color: #b8860b;
+        border-radius: 50%;
+        left: 44%;
+        bottom: 44%;
+        border: 2px solid #8b4513;
+      }
+      .foul-line {
+        position: absolute;
+        background-color: white;
+        width: 2px;
+        height: 65%;
+      }
+      #foul-line-left {
+        top: 35%;
+        left: 35%;
+        transform: rotate(-45deg);
+        transform-origin: bottom right;
+      }
+      #foul-line-right {
+        top: 35%;
+        right: 35%;
+        transform: rotate(45deg);
+        transform-origin: bottom left;
+      }
+
+      .player-icon,
+      .runner-icon,
+      .ball-icon,
+      .static-player,
+      .throw-option {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+        user-select: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        transition: all 0.2s ease-in-out;
+        z-index: 10;
+      }
+
+      .player-icon {
+        cursor: grab;
+      }
+      .player-icon:active,
+      .ball-icon:active {
+        cursor: grabbing;
+        transform: scale(1.1);
+        z-index: 20;
+      }
+
+      .player-icon {
+        background-color: #003366;
+        border: 2px solid #ffffff;
+      }
+      .static-player {
+        background-color: #003366;
+        opacity: 0.6;
+      }
+      .user-player {
+        background-color: #ffd700;
+        color: #003366;
+        border: 2px solid #003366;
+        opacity: 1;
+      }
+      .runner-icon {
+        background-color: #cc0000;
+        border: 2px solid #ffffff;
+        font-size: 20px;
+      }
+      .ball-icon {
+        background-color: #fff;
+        border: 2px solid #cc0000;
+        color: black;
+        font-size: 24px;
+        padding-bottom: 4px; /* For emoji alignment */
+        cursor: grab;
+      }
+      .throw-option {
+        font-size: 24px;
+        padding-bottom: 4px;
+        z-index: 6; /* Above drop-zones but below dragged items */
+        background-color: rgba(200, 200, 200, 0.5);
+        border: 2px dashed #ffffff;
+        color: black;
+        opacity: 0.7;
+      }
+      .throw-line {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.8);
+        height: 3px;
+        transform-origin: 0 50%;
+        z-index: 5;
+        display: none;
+      }
+      .drop-zone {
+        position: absolute;
+        border: 2px dashed rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        z-index: 4;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      .dragging {
+        opacity: 0.5;
+      }
+      .feedback-correct {
+        animation: feedback-pop 0.5s ease-out;
+      }
+      .feedback-incorrect {
+        animation: feedback-shake 0.5s ease-out;
+      }
+
+      @keyframes feedback-pop {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        70% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      @keyframes feedback-shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20%,
+        60% {
+          transform: translateX(-5px);
+        }
+        40%,
+        80% {
+          transform: translateX(5px);
+        }
+      }
+
+      #dugout-players .player-icon,
+      #dugout-ball .ball-icon {
+        position: static; /* Override absolute positioning for icons in the dugout */
+      }
+      .coin-change {
+        position: absolute;
+        right: 0;
+        top: -15px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        opacity: 0;
+        animation: coin-float 1s ease-out forwards;
+      }
+      .coin-gain {
+        color: #22c55e;
+      } /* Tailwind green-500 */
+      .coin-loss {
+        color: #ef4444;
+      } /* Tailwind red-500 */
+
+      @keyframes coin-float {
+        0% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-40px);
+          opacity: 0;
+        }
+      }
+
+      /* Responsive adjustments for smaller screens */
+      @media (max-width: 640px) {
+        .player-icon,
+        .runner-icon,
+        .ball-icon,
+        .static-player,
+        .throw-option {
+          width: 32px;
+          height: 32px;
+          font-size: 12px;
+        }
+        .ball-icon,
+        .throw-option {
+          font-size: 18px;
+          padding-bottom: 3px;
+        }
+        .runner-icon {
+          font-size: 16px;
+        }
+        .drop-zone {
+          width: 40px;
+          height: 40px;
+        }
+        .coin-change {
+          top: -10px;
+          font-size: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 flex flex-col items-center p-2 sm:p-4 min-h-screen">
+    <div class="w-full max-w-4xl mx-auto">
+      <h1
+        class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-800 mb-2"
+      >
+        Baseball Tactics
+      </h1>
+      <p class="text-center text-gray-600 mb-4 text-sm sm:text-base">
+        An Interactive Baseball IQ Trainer
+      </p>
+
+      <!-- User Profile Section -->
+      <div
+        id="user-profile"
+        class="bg-white rounded-lg shadow-md p-4 mb-4 flex flex-wrap justify-between items-center gap-4"
+      >
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-3">
+            <label
+              for="player-name"
+              class="font-bold text-gray-700 text-base sm:text-lg"
+              >Player:</label
+            >
+            <input
+              type="text"
+              id="player-name"
+              placeholder="Enter Your Name"
+              class="border rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none transition w-36 sm:w-auto"
+            />
+          </div>
+          <div id="rank-display" class="flex items-center gap-2">
+            <span class="font-bold text-gray-700 text-base sm:text-lg"
+              >Rank:</span
+            >
+            <span
+              id="rank-level"
+              class="font-bold text-xl sm:text-2xl text-gray-800"
+              >0</span
+            >
+          </div>
+        </div>
+        <div id="coin-display" class="relative flex items-center gap-2">
+          <!-- Super Mario style coin icon -->
+          <svg
+            class="w-8 h-8 sm:w-10 sm:h-10"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <radialGradient id="coinshine" cx="0.25" cy="0.25" r="0.35">
+                <stop offset="0%" stop-color="#FFF7B6" />
+                <stop offset="100%" stop-color="#F7D957" />
+              </radialGradient>
+            </defs>
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="#F7D957"
+              stroke="#D48C2A"
+              stroke-width="5"
+            />
+            <circle
+              cx="50"
+              cy="50"
+              r="35"
+              fill="#E6A931"
+              stroke="#D48C2A"
+              stroke-width="3"
+            />
+            <path
+              d="M 50,25 59,45 80,45 64,58 70,78 50,65 30,78 36,58 20,45 41,45 Z"
+              fill="#F7D957"
+              stroke="#D48C2A"
+              stroke-width="2"
+            />
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="url(#coinshine)"
+              opacity="0.8"
+            />
+          </svg>
+          <span
+            id="coin-count"
+            class="font-bold text-xl sm:text-2xl text-gray-800"
+            >5</span
+          >
+          <span id="coin-change-text"></span>
+        </div>
+      </div>
+
+      <!-- Scenario Info -->
+      <div
+        id="scenario-box"
+        class="bg-white rounded-lg shadow-md p-4 mb-4 border-l-4 border-blue-600"
+      >
+        <h2 class="text-xl font-bold text-gray-800 mb-2">The Situation</h2>
+        <div
+          id="scenario-info"
+          class="grid grid-cols-2 md:grid-cols-4 gap-2 text-gray-700"
+        >
+          <p><strong>Inning:</strong> <span id="inning"></span></p>
+          <p><strong>Outs:</strong> <span id="outs"></span></p>
+          <p><strong>Score:</strong> <span id="score"></span></p>
+          <p><strong>Runners:</strong> <span id="runners"></span></p>
+        </div>
+        <div class="mt-3 pt-3 border-t">
+          <h3 class="text-lg font-semibold text-gray-800">The Play</h3>
+          <p id="play-description" class="text-gray-600"></p>
+          <p
+            id="user-position-info"
+            class="mt-2 text-blue-700 font-semibold"
+          ></p>
+        </div>
+      </div>
+
+      <!-- Main Game Area -->
+      <div class="flex flex-col md:flex-row gap-4">
+        <!-- Baseball Field -->
+        <div class="flex-grow">
+          <div id="field-container" class="baseball-field">
+            <div class="infield-dirt"></div>
+            <div id="home-plate"></div>
+            <div id="first-base" class="base"></div>
+            <div id="second-base" class="base"></div>
+            <div id="third-base" class="base"></div>
+            <div class="pitchers-mound"></div>
+            <div id="foul-line-left" class="foul-line"></div>
+            <div id="foul-line-right" class="foul-line"></div>
+            <div id="throw-line" class="throw-line"></div>
+          </div>
+        </div>
+
+        <!-- Dugout and Controls -->
+        <div
+          class="w-full md:w-64 bg-gray-200 p-4 rounded-lg shadow-inner flex flex-col"
+        >
+          <div class="flex-grow">
+            <h3 class="text-lg font-bold text-center mb-2">The Dugout</h3>
+            <p class="text-sm text-center text-gray-600 mb-2">
+              Drag key players to their positions.
+            </p>
+            <div
+              id="dugout-players"
+              class="flex justify-center gap-3 items-center mb-6 bg-gray-300 rounded-lg p-6"
+            >
+              <!-- Player icons to be dragged will be injected here -->
+            </div>
+
+            <h3 class="text-lg font-bold text-center mb-2">The Throw</h3>
+            <p class="text-sm text-center text-gray-600 mb-2">
+              Drag the ball to the correct target.
+            </p>
+            <div
+              id="dugout-ball"
+              class="flex justify-center items-center bg-gray-300 rounded-lg p-6"
+            >
+              <div id="ball" class="ball-icon" draggable="true">⚾</div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-col gap-3">
+            <button
+              id="submit-btn"
+              class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200 shadow-md"
+            >
+              Submit Play
+            </button>
+            <button
+              id="reset-btn"
+              class="w-full bg-gray-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-200"
+            >
+              Reset Positions
+            </button>
+            <button
+              id="next-scenario-btn"
+              class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-200"
+            >
+              Next Scenario
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feedback Modal -->
+      <div
+        id="feedback-modal"
+        class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4 hidden z-50"
+      >
+        <div
+          id="feedback-content"
+          class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-lg mx-auto"
+        >
+          <h2 id="feedback-title" class="text-2xl font-bold mb-4"></h2>
+          <p id="feedback-text" class="text-gray-700 mb-6"></p>
+          <button
+            id="show-answer-btn"
+            class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-200"
+          >
+            Show Answer
+          </button>
+        </div>
+      </div>
+
+      <!-- Game Over Modal -->
+      <div
+        id="game-over-modal"
+        class="fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4 hidden z-50"
+      >
+        <div
+          class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-lg mx-auto text-center"
+        >
+          <h2 class="text-3xl font-bold mb-4 text-red-600">Game Over</h2>
+          <p class="text-gray-700 mb-6 text-lg">You've run out of coins!</p>
+          <button
+            id="play-again-btn"
+            class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-200 text-lg"
+          >
+            Play Again
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- DOM ELEMENTS ---
+        const fieldContainer = document.getElementById("field-container");
+        const dugoutPlayers = document.getElementById("dugout-players");
+        const dugoutBall = document.getElementById("dugout-ball");
+        const throwLine = document.getElementById("throw-line");
+        const submitBtn = document.getElementById("submit-btn");
+        const resetBtn = document.getElementById("reset-btn");
+        const feedbackModal = document.getElementById("feedback-modal");
+        const feedbackContent = document.getElementById("feedback-content");
+        const feedbackTitle = document.getElementById("feedback-title");
+        const feedbackText = document.getElementById("feedback-text");
+        const showAnswerBtn = document.getElementById("show-answer-btn");
+        const nextScenarioBtn = document.getElementById("next-scenario-btn");
+        const coinCountElement = document.getElementById("coin-count");
+        const coinChangeText = document.getElementById("coin-change-text");
+        const rankLevelElement = document.getElementById("rank-level");
+        const gameOverModal = document.getElementById("game-over-modal");
+        const playAgainBtn = document.getElementById("play-again-btn");
+
+        // --- GAME STATE ---
+        let currentScenarioIndex = -1;
+        let draggedItem = null;
+        let userPositions = {}; // { 'SS': { x, y }, 'ball': { x, y } }
+        let userPlayerElement = null;
+        let playerCoins = 5;
+        let playerRank = 0;
+        let correctAnswersCount = 0;
+
+        // --- SCENARIO DATA ---
+        const SCENARIOS_DATA = [
+          {
+            info: {
+              inning: "Top 3rd",
+              outs: "0",
+              score: "Home 1 - Away 0",
+              runners: "On 1st",
+            },
+            play: {
+              description:
+                "Batter hits a single to right field. Runner on 1st tries to take third.",
+              userPosition: "RF",
+              userPos: { x: 85, y: 30 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }], // Start on 1st base
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "3B": { x: 30, y: 60 },
+              SS: { x: 40, y: 50 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+            },
+            solution: {
+              players: {
+                "1B": { x: 60, y: 40 }, // Trails runner to 2nd
+                "2B": { x: 70, y: 65 }, // Cutoff for home
+              },
+              ball: { x: 27, y: 50 }, // Correct throw is to 3B
+              throwOptions: [
+                { x: 27, y: 50 }, // To 3B (Correct)
+                { x: 50, y: 25 }, // To 2B
+                { x: 75, y: 50 }, // To 1B
+              ],
+              feedback: {
+                correct:
+                  "Perfect! By throwing to third, you have a chance to get the lead runner. Your 1B and 2B are correctly positioned to back up and cover bases.",
+                incorrect:
+                  "Not quite. The primary play is at third base to stop the lead runner. Your infielders also need to be in position to cover for a potential overthrow or further play.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 7th",
+              outs: "1",
+              score: "Tied 2-2",
+              runners: "On 2nd",
+            },
+            play: {
+              description:
+                "A base hit is lined into the left-center field gap. The runner on 2nd tries to score.",
+              userPosition: "CF",
+              userPos: { x: 35, y: 10 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 50, y: 25 } }], // Start on 2nd base
+            staticPlayers: {
+              P: { x: 50, y: 60 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {
+                SS: { x: 40, y: 45 }, // Goes out for the cutoff
+                LF: { x: 15, y: 20 }, // Backs up the play
+                "2B": { x: 60, y: 45 }, // Covers 2nd base
+              },
+              ball: { x: 40, y: 45 }, // Throw to the cutoff man (SS)
+              throwOptions: [
+                { x: 40, y: 45 }, // To cutoff SS (Correct)
+                { x: 50, y: 92 }, // To Home
+                { x: 60, y: 45 }, // To 2B
+              ],
+              feedback: {
+                correct:
+                  "Excellent! You hit the cutoff man (SS). This is fundamentally sound baseball, giving your team the best chance to make a play at the plate.",
+                incorrect:
+                  "That's a risky play. Trying to throw all the way home often results in a late throw, allowing the batter to advance. Always hit your cutoff man.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 9th",
+              outs: "1",
+              score: "Home 3 - Away 2",
+              runners: "On 1st & 3rd",
+            },
+            play: {
+              description:
+                "The batter hits a routine ground ball right to you. A double play would end the inning.",
+              userPosition: "SS",
+              userPos: { x: 40, y: 55 },
+            },
+            initialRunners: [
+              { id: "R1", pos: { x: 75, y: 50 } }, // Runner on 1st
+              { id: "R2", pos: { x: 25, y: 50 } }, // Runner on 3rd
+            ],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {
+                "2B": { x: 60, y: 40 }, // Covers second for the double play
+              },
+              ball: { x: 60, y: 40 }, // Throw to second base
+              throwOptions: [
+                { x: 60, y: 40 }, // To 2B (Correct)
+                { x: 75, y: 50 }, // To 1B
+                { x: 50, y: 92 }, // To Home
+              ],
+              feedback: {
+                correct:
+                  "That's the game-saving play! You start the 6-4-3 double play, which ends the inning and secures the win. This is the highest percentage play.",
+                incorrect:
+                  "Getting the out at first is safe, but it allows the tying run to score from third. In this critical situation, you have to go for the double play.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 2nd",
+              outs: "0",
+              score: "Tied 0-0",
+              runners: "On 1st",
+            },
+            play: {
+              description:
+                "The batter squares to bunt and lays down a bunt towards you along the foul line.",
+              userPosition: "3B",
+              userPos: { x: 30, y: 60 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
+            staticPlayers: {
+              C: { x: 50, y: 92 },
+              "2B": { x: 60, y: 55 },
+              SS: { x: 40, y: 55 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {
+                P: { x: 25, y: 50 }, // Covers 3rd base
+                "1B": { x: 65, y: 50 }, // Covers 1st base
+              },
+              ball: { x: 75, y: 50 }, // Correct throw is to 1B
+              throwOptions: [
+                { x: 75, y: 50 }, // To 1B (Correct)
+                { x: 50, y: 25 }, // To 2B
+                { x: 25, y: 50 }, // To 3B (where P should be)
+              ],
+              feedback: {
+                correct:
+                  "Great play! You fielded the bunt and made the smart throw to first for the sure out. Your pitcher correctly covers third base in case of a rundown.",
+                incorrect:
+                  "This is a tricky play. While getting the lead runner at second is tempting, it's a very difficult throw. The highest percentage play is to take the guaranteed out at first base.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 5th",
+              outs: "1",
+              score: "Away 2 - Home 1",
+              runners: "On 2nd",
+            },
+            play: {
+              description:
+                "The batter hits a medium-deep fly ball to you. The runner on 2nd is tagging up.",
+              userPosition: "CF",
+              userPos: { x: 50, y: 10 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 50, y: 25 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {
+                SS: { x: 40, y: 35 }, // Cutoff for third
+                "2B": { x: 60, y: 35 }, // Covers second
+              },
+              ball: { x: 40, y: 35 }, // Throw to cutoff (SS)
+              throwOptions: [
+                { x: 40, y: 35 }, // To SS (Correct)
+                { x: 25, y: 50 }, // Directly to 3B
+                { x: 50, y: 92 }, // Directly to Home
+              ],
+              feedback: {
+                correct:
+                  "Textbook execution! You hit your cutoff man, the shortstop. This prevents a costly overthrow and keeps the batter from advancing, while still giving you a chance to get the runner at third.",
+                incorrect:
+                  "Trying to throw all the way to third base is risky. If the throw is offline, the runner could score and the batter could advance to second. Always hit the cutoff man in this situation.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 8th",
+              outs: "1",
+              score: "Home 4 - Away 3",
+              runners: "On 1st & 2nd",
+            },
+            play: {
+              description:
+                "A ground ball is hit sharply to your right. You move to the bag to take the throw for the force out.",
+              userPosition: "SS",
+              userPos: { x: 40, y: 50 },
+            },
+            initialRunners: [
+              { id: "R1", pos: { x: 75, y: 50 } },
+              { id: "R2", pos: { x: 50, y: 25 } },
+            ],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {
+                "2B": { x: 60, y: 40 }, // Fields the ball and throws to SS
+              },
+              ball: { x: 75, y: 50 }, // The SS's throw goes to first
+              throwOptions: [
+                { x: 75, y: 50 }, // To 1B (Correct)
+                { x: 25, y: 50 }, // To 3B
+                { x: 50, y: 92 }, // To Home
+              ],
+              feedback: {
+                correct:
+                  "That's the inning-ending double play! Your second baseman made the right feed, and you completed the pivot perfectly with a strong throw to first. Great teamwork!",
+                incorrect:
+                  "After getting the force at second, the play is always to first base for the double play. There is no force out at third or home, so throwing there would be a mistake.",
+              },
+            },
+          },
+        ];
+
+        // --- DRAG & DROP LOGIC (NO CHANGES) ---
+        function setupDragEvents(element) {
+          element.addEventListener("dragstart", (e) => {
+            draggedItem = e.target;
+            setTimeout(() => e.target.classList.add("dragging"), 0);
+          });
+          element.addEventListener("dragend", (e) => {
+            e.target.classList.remove("dragging");
+            draggedItem = null;
+          });
+        }
+        fieldContainer.addEventListener("dragover", (e) => {
+          e.preventDefault();
+        });
+        fieldContainer.addEventListener("drop", (e) => {
+          e.preventDefault();
+          if (draggedItem) {
+            const fieldRect = fieldContainer.getBoundingClientRect();
+            const x = e.clientX - fieldRect.left;
+            const y = e.clientY - fieldRect.top;
+            draggedItem.style.left = `${x - draggedItem.offsetWidth / 2}px`;
+            draggedItem.style.top = `${y - draggedItem.offsetHeight / 2}px`;
+            fieldContainer.appendChild(draggedItem);
+            const xPercent = (x / fieldRect.width) * 100;
+            const yPercent = (y / fieldRect.height) * 100;
+            userPositions[draggedItem.dataset.id] = {
+              x: xPercent,
+              y: yPercent,
+            };
+            if (draggedItem.dataset.id === "ball") {
+              updateThrowLine();
+            }
+          }
+        });
+
+        // --- TOUCH DRAG & DROP LOGIC (NO CHANGES) ---
+        let touchOffsetX = 0;
+        let touchOffsetY = 0;
+        function setupTouchEvents(element) {
+          element.addEventListener(
+            "touchstart",
+            (e) => {
+              draggedItem = e.target;
+              draggedItem.classList.add("dragging");
+              const touch = e.targetTouches[0];
+              const rect = draggedItem.getBoundingClientRect();
+              touchOffsetX = touch.clientX - rect.left;
+              touchOffsetY = touch.clientY - rect.top;
+              fieldContainer.appendChild(draggedItem);
+            },
+            { passive: false }
+          );
+          element.addEventListener(
+            "touchmove",
+            (e) => {
+              if (draggedItem) {
+                e.preventDefault();
+                const touch = e.targetTouches[0];
+                const fieldRect = fieldContainer.getBoundingClientRect();
+                let x = touch.clientX - fieldRect.left - touchOffsetX;
+                let y = touch.clientY - fieldRect.top - touchOffsetY;
+                x = Math.max(
+                  0,
+                  Math.min(x, fieldRect.width - draggedItem.offsetWidth)
+                );
+                y = Math.max(
+                  0,
+                  Math.min(y, fieldRect.height - draggedItem.offsetHeight)
+                );
+                draggedItem.style.left = `${x}px`;
+                draggedItem.style.top = `${y}px`;
+              }
+            },
+            { passive: false }
+          );
+          element.addEventListener("touchend", (e) => {
+            if (draggedItem) {
+              draggedItem.classList.remove("dragging");
+              const fieldRect = fieldContainer.getBoundingClientRect();
+              const finalX =
+                parseFloat(draggedItem.style.left) +
+                draggedItem.offsetWidth / 2;
+              const finalY =
+                parseFloat(draggedItem.style.top) +
+                draggedItem.offsetHeight / 2;
+              const xPercent = (finalX / fieldRect.width) * 100;
+              const yPercent = (finalY / fieldRect.height) * 100;
+              userPositions[draggedItem.dataset.id] = {
+                x: xPercent,
+                y: yPercent,
+              };
+              if (draggedItem.dataset.id === "ball") {
+                updateThrowLine();
+              }
+              draggedItem = null;
+            }
+          });
+        }
+
+        // --- HELPER FUNCTIONS ---
+        function createPlayerIcon(id, isDraggable = false, isUser = false) {
+          const player = document.createElement("div");
+          player.id = id.toLowerCase();
+          player.dataset.id = id;
+          player.textContent = id;
+          if (isDraggable) {
+            player.className = isUser
+              ? "user-player player-icon"
+              : "player-icon";
+            player.setAttribute("draggable", "true");
+            setupDragEvents(player);
+            setupTouchEvents(player);
+          } else {
+            player.className = isUser
+              ? "user-player static-player"
+              : "static-player";
+          }
+          return player;
+        }
+        function createDropZone(id, pos) {
+          const zone = document.createElement("div");
+          zone.className = "drop-zone";
+          zone.style.left = `${pos.x}%`;
+          zone.style.top = `${pos.y}%`;
+          zone.style.transform = "translate(-50%, -50%)";
+          return zone;
+        }
+
+        // --- GAME LOGIC ---
+        function loadScenario(scenario) {
+          // Clear previous state
+          fieldContainer
+            .querySelectorAll(
+              ".player-icon, .runner-icon, .ball-icon, .static-player, .drop-zone, .throw-option"
+            )
+            .forEach((el) => el.remove());
+          dugoutPlayers.innerHTML = "";
+          dugoutBall.innerHTML =
+            '<div id="ball" class="ball-icon" draggable="true" data-id="ball">⚾</div>';
+          const ball = document.getElementById("ball");
+          setupDragEvents(ball);
+          setupTouchEvents(ball);
+          userPositions = {};
+          throwLine.style.display = "none";
+
+          // Update info panel
+          document.getElementById("inning").textContent = scenario.info.inning;
+          document.getElementById("outs").textContent = scenario.info.outs;
+          document.getElementById("score").textContent = scenario.info.score;
+          document.getElementById("runners").textContent =
+            scenario.info.runners;
+          document.getElementById("play-description").textContent =
+            scenario.play.description;
+          document.getElementById(
+            "user-position-info"
+          ).textContent = `You are the ${scenario.play.userPosition}.`;
+
+          // Add static (pre-positioned) players
+          for (const pos in scenario.staticPlayers) {
+            const icon = createPlayerIcon(pos, false, false);
+            icon.style.left = `${scenario.staticPlayers[pos].x}%`;
+            icon.style.top = `${scenario.staticPlayers[pos].y}%`;
+            icon.style.transform = "translate(-50%, -50%)";
+            fieldContainer.appendChild(icon);
+          }
+
+          // Add draggable players to dugout and drop zones to field
+          for (const pos in scenario.solution.players) {
+            const icon = createPlayerIcon(pos, true, false);
+            dugoutPlayers.appendChild(icon);
+            const dropZone = createDropZone(
+              pos,
+              scenario.solution.players[pos]
+            );
+            fieldContainer.appendChild(dropZone);
+          }
+
+          // Add throw option targets to the field
+          scenario.solution.throwOptions.forEach((option) => {
+            const target = document.createElement("div");
+            target.className = "throw-option";
+            target.textContent = "⚾";
+            target.style.left = `${option.x}%`;
+            target.style.top = `${option.y}%`;
+            target.style.transform = "translate(-50%, -50%)";
+            fieldContainer.appendChild(target);
+          });
+
+          // Place user player (fixed position)
+          userPlayerElement = createPlayerIcon(
+            scenario.play.userPosition,
+            false,
+            true
+          );
+          userPlayerElement.style.left = `${scenario.play.userPos.x}%`;
+          userPlayerElement.style.top = `${scenario.play.userPos.y}%`;
+          userPlayerElement.style.transform = "translate(-50%, -50%)";
+          fieldContainer.appendChild(userPlayerElement);
+
+          // Place runners
+          scenario.initialRunners.forEach((runnerInfo) => {
+            const runner = document.createElement("div");
+            runner.className = "runner-icon";
+            runner.textContent = "R";
+            runner.style.left = `${runnerInfo.pos.x}%`;
+            runner.style.top = `${runnerInfo.pos.y}%`;
+            runner.style.transform = "translate(-50%, -50%)";
+            fieldContainer.appendChild(runner);
+          });
+        }
+
+        function nextScenario() {
+          currentScenarioIndex =
+            (currentScenarioIndex + 1) % SCENARIOS_DATA.length;
+          loadScenario(SCENARIOS_DATA[currentScenarioIndex]);
+          feedbackModal.classList.add("hidden");
+          feedbackModal.classList.remove("flex");
+        }
+
+        function updateThrowLine() {
+          if (!userPlayerElement) return;
+          const userRect = userPlayerElement.getBoundingClientRect();
+          const fieldRect = fieldContainer.getBoundingClientRect();
+
+          const ballElem = document.getElementById("ball");
+          if (!ballElem || !fieldContainer.contains(ballElem)) return;
+          const ballRect = ballElem.getBoundingClientRect();
+
+          const startX = userRect.left + userRect.width / 2 - fieldRect.left;
+          const startY = userRect.top + userRect.height / 2 - fieldRect.top;
+          const endX = ballRect.left + ballRect.width / 2 - fieldRect.left;
+          const endY = ballRect.top + ballRect.height / 2 - fieldRect.top;
+
+          const distance = Math.sqrt(
+            (endX - startX) ** 2 + (endY - startY) ** 2
+          );
+          const angle =
+            Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
+
+          throwLine.style.width = `${distance}px`;
+          throwLine.style.left = `${startX}px`;
+          throwLine.style.top = `${startY}px`;
+          throwLine.style.transform = `rotate(${angle}deg)`;
+          throwLine.style.display = "block";
+        }
+
+        function checkSolution() {
+          const scenario = SCENARIOS_DATA[currentScenarioIndex];
+          const solutionPlayers = scenario.solution.players;
+          const solutionBall = scenario.solution.ball;
+
+          let correctPlacements = 0;
+          let totalPlacements = Object.keys(solutionPlayers).length;
+          if (totalPlacements === 0) {
+            correctPlacements = 1;
+            totalPlacements = 1;
+          } // Handle scenarios with no draggable players
+          let isBallCorrect = false;
+          const tolerance = 10; // 10% tolerance radius
+
+          // Check player positions
+          for (const pos in solutionPlayers) {
+            if (userPositions[pos]) {
+              const dx = userPositions[pos].x - solutionPlayers[pos].x;
+              const dy = userPositions[pos].y - solutionPlayers[pos].y;
+              if (Math.sqrt(dx * dx + dy * dy) < tolerance) {
+                correctPlacements++;
+              }
+            }
+          }
+
+          // Check ball position
+          if (userPositions.ball) {
+            const dx = userPositions.ball.x - solutionBall.x;
+            const dy = userPositions.ball.y - solutionBall.y;
+            if (Math.sqrt(dx * dx + dy * dy) < tolerance) {
+              isBallCorrect = true;
+            }
+          }
+
+          // Require ALL players AND the ball to be correct
+          if (isBallCorrect && correctPlacements === totalPlacements) {
+            showFeedback(true, scenario.solution.feedback.correct);
+            playerCoins++;
+            correctAnswersCount++;
+            if (
+              correctAnswersCount > 0 &&
+              correctAnswersCount % 2 === 0 &&
+              playerRank < 10
+            ) {
+              playerRank++;
+              updateRankDisplay();
+            }
+            triggerCoinAnimation(true);
+          } else {
+            if (playerCoins > 1) {
+              showFeedback(false, scenario.solution.feedback.incorrect);
+              playerCoins--;
+              triggerCoinAnimation(false);
+            } else {
+              playerCoins = 0;
+              triggerCoinAnimation(false);
+              gameOver();
+            }
+          }
+          updateCoinDisplay();
+        }
+
+        function gameOver() {
+          feedbackModal.classList.add("hidden");
+          feedbackModal.classList.remove("flex");
+          gameOverModal.classList.remove("hidden");
+          gameOverModal.classList.add("flex");
+        }
+
+        function resetGame() {
+          playerCoins = 5;
+          playerRank = 0;
+          correctAnswersCount = 0;
+          updateCoinDisplay();
+          updateRankDisplay();
+          gameOverModal.classList.add("hidden");
+          gameOverModal.classList.remove("flex");
+          nextScenario();
+        }
+
+        function triggerCoinAnimation(isGain) {
+          coinChangeText.textContent = isGain ? "+1" : "-1";
+          // Reset animation
+          coinChangeText.className = "";
+          void coinChangeText.offsetWidth; // Trigger reflow
+
+          coinChangeText.className = `coin-change ${
+            isGain ? "coin-gain" : "coin-loss"
+          }`;
+        }
+
+        function updateCoinDisplay() {
+          coinCountElement.textContent = playerCoins;
+          const coinDisplay = document.getElementById("coin-display");
+          coinDisplay.classList.remove("feedback-pop");
+          void coinDisplay.offsetWidth; // Trigger reflow to restart animation
+          coinDisplay.classList.add("feedback-pop");
+        }
+
+        function updateRankDisplay() {
+          rankLevelElement.textContent = playerRank;
+        }
+
+        function showFeedback(isCorrect, text) {
+          feedbackTitle.textContent = isCorrect
+            ? "Correct!"
+            : "Needs Improvement";
+          feedbackText.textContent = text;
+          feedbackContent.className = `bg-white rounded-lg shadow-2xl p-6 w-full max-w-lg mx-auto ${
+            isCorrect
+              ? "feedback-correct border-t-4 border-green-500"
+              : "feedback-incorrect border-t-4 border-red-500"
+          }`;
+          feedbackModal.classList.remove("hidden");
+          feedbackModal.classList.add("flex");
+        }
+
+        function showCorrectSolution(solution) {
+          fieldContainer
+            .querySelectorAll(".drop-zone")
+            .forEach((dz) => (dz.style.opacity = "0"));
+          fieldContainer
+            .querySelectorAll(".throw-option")
+            .forEach((to) => (to.style.display = "none"));
+
+          // Show where players should have been
+          for (const pos in solution.players) {
+            let playerElem = document.getElementById(pos.toLowerCase());
+            if (playerElem) {
+              playerElem.style.transition = "all 0.5s ease-in-out";
+              playerElem.style.left = `${solution.players[pos].x}%`;
+              playerElem.style.top = `${solution.players[pos].y}%`;
+              playerElem.style.transform = "translate(-50%, -50%) scale(1.1)";
+              playerElem.style.border = "3px solid #34D399";
+            }
+          }
+          // Show where ball should have been
+          let ballElem = document.getElementById("ball");
+          if (ballElem) {
+            ballElem.style.transition = "all 0.5s ease-in-out";
+            ballElem.style.left = `${solution.ball.x}%`;
+            ballElem.style.top = `${solution.ball.y}%`;
+            ballElem.style.transform = "translate(-50%, -50%) scale(1.1)";
+            ballElem.style.border = "3px solid #34D399";
+
+            // Show correct throw option
+            const correctTarget = document.createElement("div");
+            correctTarget.className = "throw-option";
+            correctTarget.textContent = "⚾";
+            correctTarget.style.left = `${solution.ball.x}%`;
+            correctTarget.style.top = `${solution.ball.y}%`;
+            correctTarget.style.transform = "translate(-50%, -50%)";
+            correctTarget.style.borderColor = "#34D399";
+            correctTarget.style.opacity = "1";
+            fieldContainer.appendChild(correctTarget);
+
+            updateThrowLine();
+          }
+        }
+
+        // --- EVENT LISTENERS ---
+        submitBtn.addEventListener("click", checkSolution);
+        resetBtn.addEventListener("click", () =>
+          loadScenario(SCENARIOS_DATA[currentScenarioIndex])
+        );
+        nextScenarioBtn.addEventListener("click", nextScenario);
+        playAgainBtn.addEventListener("click", resetGame);
+        showAnswerBtn.addEventListener("click", () => {
+          feedbackModal.classList.add("hidden");
+          feedbackModal.classList.remove("flex");
+          const scenario = SCENARIOS_DATA[currentScenarioIndex];
+          showCorrectSolution(scenario.solution);
+        });
+
+        // --- INITIALIZE GAME ---
+        updateCoinDisplay();
+        updateRankDisplay();
+        nextScenario(); // Load the first scenario
+      });
+    </script>
+  </body>
+</html>
