@@ -289,89 +289,6 @@
         An Interactive Baseball IQ Trainer
       </p>
 
-      <!-- User Profile Section -->
-      <div
-        id="user-profile"
-        class="bg-white rounded-lg shadow-md p-4 mb-4 flex flex-wrap justify-between items-center gap-4"
-      >
-        <div class="flex items-center gap-3">
-          <label
-            for="player-name"
-            class="font-bold text-gray-700 text-base sm:text-lg"
-            >Player:</label
-          >
-          <input
-            type="text"
-            id="player-name"
-            placeholder="Enter Your Name"
-            class="border rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none transition w-36 sm:w-auto"
-          />
-        </div>
-
-        <div class="flex items-center gap-8">
-          <div id="rank-display" class="flex items-center gap-2">
-            <span class="font-bold text-gray-700 text-base sm:text-lg"
-              >Rank:</span
-            >
-            <span
-              id="rank-level"
-              class="font-bold text-xl sm:text-2xl text-gray-800"
-              >0</span
-            >
-          </div>
-          <div id="coin-display" class="relative flex items-center gap-2">
-            <!-- Super Mario style coin icon -->
-            <svg
-              class="w-8 h-8 sm:w-10 sm:h-10"
-              viewBox="0 0 100 100"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <radialGradient id="coinshine" cx="0.25" cy="0.25" r="0.35">
-                  <stop offset="0%" stop-color="#FFF7B6" />
-                  <stop offset="100%" stop-color="#F7D957" />
-                </radialGradient>
-              </defs>
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="#F7D957"
-                stroke="#D48C2A"
-                stroke-width="5"
-              />
-              <circle
-                cx="50"
-                cy="50"
-                r="35"
-                fill="#E6A931"
-                stroke="#D48C2A"
-                stroke-width="3"
-              />
-              <path
-                d="M 50,25 59,45 80,45 64,58 70,78 50,65 30,78 36,58 20,45 41,45 Z"
-                fill="#F7D957"
-                stroke="#D48C2A"
-                stroke-width="2"
-              />
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="url(#coinshine)"
-                opacity="0.8"
-              />
-            </svg>
-            <span
-              id="coin-count"
-              class="font-bold text-xl sm:text-2xl text-gray-800"
-              >5</span
-            >
-            <span id="coin-change-text"></span>
-          </div>
-        </div>
-      </div>
-
       <!-- Scenario Info -->
       <div
         id="scenario-box"
@@ -399,8 +316,91 @@
 
       <!-- Main Game Area -->
       <div class="flex flex-col lg:flex-row gap-4">
-        <!-- Leaderboard Column (Left) -->
-        <div class="w-full lg:w-72 order-3 lg:order-1">
+        <!-- Left Column -->
+        <div class="w-full lg:w-72 order-3 lg:order-1 flex flex-col gap-4">
+          <!-- User Profile Section -->
+          <div
+            id="user-profile"
+            class="bg-white rounded-lg shadow-md p-4 flex flex-col gap-4"
+          >
+            <div class="flex items-center gap-3">
+              <label
+                for="player-name"
+                class="font-bold text-gray-700 text-base sm:text-lg"
+                >Player:</label
+              >
+              <input
+                type="text"
+                id="player-name"
+                placeholder="Enter Your Name"
+                class="border rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none transition w-full"
+              />
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <div id="rank-display" class="flex items-center gap-2">
+                <span class="font-bold text-gray-700 text-base sm:text-lg"
+                  >Rank:</span
+                >
+                <span
+                  id="rank-level"
+                  class="font-bold text-xl sm:text-2xl text-gray-800"
+                  >0</span
+                >
+              </div>
+              <div id="coin-display" class="relative flex items-center gap-2">
+                <!-- Super Mario style coin icon -->
+                <svg
+                  class="w-8 h-8 sm:w-10 sm:h-10"
+                  viewBox="0 0 100 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <radialGradient id="coinshine" cx="0.25" cy="0.25" r="0.35">
+                      <stop offset="0%" stop-color="#FFF7B6" />
+                      <stop offset="100%" stop-color="#F7D957" />
+                    </radialGradient>
+                  </defs>
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    fill="#F7D957"
+                    stroke="#D48C2A"
+                    stroke-width="5"
+                  />
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="35"
+                    fill="#E6A931"
+                    stroke="#D48C2A"
+                    stroke-width="3"
+                  />
+                  <path
+                    d="M 50,25 59,45 80,45 64,58 70,78 50,65 30,78 36,58 20,45 41,45 Z"
+                    fill="#F7D957"
+                    stroke="#D48C2A"
+                    stroke-width="2"
+                  />
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    fill="url(#coinshine)"
+                    opacity="0.8"
+                  />
+                </svg>
+                <span
+                  id="coin-count"
+                  class="font-bold text-xl sm:text-2xl text-gray-800"
+                  >5</span
+                >
+                <span id="coin-change-text"></span>
+              </div>
+            </div>
+          </div>
+          <!-- Leaderboard Section -->
           <div
             id="leaderboard-section"
             class="w-full bg-white rounded-lg shadow-md p-4"
