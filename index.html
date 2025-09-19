@@ -549,7 +549,7 @@
               userPosition: "RF",
               userPos: { x: 85, y: 30 },
             },
-            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }], // Start on 1st base
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
             staticPlayers: {
               P: { x: 50, y: 53 },
               C: { x: 50, y: 92 },
@@ -559,15 +559,12 @@
               CF: { x: 50, y: 10 },
             },
             solution: {
-              players: {
-                "1B": { x: 60, y: 40 }, // Trails runner to 2nd
-                "2B": { x: 70, y: 65 }, // Cutoff for home
-              },
-              ball: { x: 27, y: 50 }, // Correct throw is to 3B
+              players: { "1B": { x: 60, y: 40 }, "2B": { x: 70, y: 65 } },
+              ball: { x: 27, y: 50 },
               throwOptions: [
-                { x: 27, y: 50 }, // To 3B (Correct)
-                { x: 50, y: 25 }, // To 2B
-                { x: 75, y: 50 }, // To 1B
+                { x: 27, y: 50 },
+                { x: 50, y: 25 },
+                { x: 75, y: 50 },
               ],
               feedback: {
                 correct:
@@ -590,7 +587,7 @@
               userPosition: "CF",
               userPos: { x: 35, y: 10 },
             },
-            initialRunners: [{ id: "R1", pos: { x: 50, y: 25 } }], // Start on 2nd base
+            initialRunners: [{ id: "R1", pos: { x: 50, y: 25 } }],
             staticPlayers: {
               P: { x: 50, y: 60 },
               C: { x: 50, y: 92 },
@@ -600,15 +597,15 @@
             },
             solution: {
               players: {
-                SS: { x: 40, y: 45 }, // Goes out for the cutoff
-                LF: { x: 15, y: 20 }, // Backs up the play
-                "2B": { x: 60, y: 45 }, // Covers 2nd base
+                SS: { x: 40, y: 45 },
+                LF: { x: 15, y: 20 },
+                "2B": { x: 60, y: 45 },
               },
-              ball: { x: 40, y: 45 }, // Throw to the cutoff man (SS)
+              ball: { x: 40, y: 45 },
               throwOptions: [
-                { x: 40, y: 45 }, // To cutoff SS (Correct)
-                { x: 50, y: 92 }, // To Home
-                { x: 60, y: 45 }, // To 2B
+                { x: 40, y: 45 },
+                { x: 50, y: 92 },
+                { x: 60, y: 45 },
               ],
               feedback: {
                 correct:
@@ -632,8 +629,8 @@
               userPos: { x: 40, y: 55 },
             },
             initialRunners: [
-              { id: "R1", pos: { x: 75, y: 50 } }, // Runner on 1st
-              { id: "R2", pos: { x: 25, y: 50 } }, // Runner on 3rd
+              { id: "R1", pos: { x: 75, y: 50 } },
+              { id: "R2", pos: { x: 25, y: 50 } },
             ],
             staticPlayers: {
               P: { x: 50, y: 53 },
@@ -645,14 +642,12 @@
               RF: { x: 85, y: 25 },
             },
             solution: {
-              players: {
-                "2B": { x: 60, y: 40 }, // Covers second for the double play
-              },
-              ball: { x: 60, y: 40 }, // Throw to second base
+              players: { "2B": { x: 60, y: 40 } },
+              ball: { x: 60, y: 40 },
               throwOptions: [
-                { x: 60, y: 40 }, // To 2B (Correct)
-                { x: 75, y: 50 }, // To 1B
-                { x: 50, y: 92 }, // To Home
+                { x: 60, y: 40 },
+                { x: 75, y: 50 },
+                { x: 50, y: 92 },
               ],
               feedback: {
                 correct:
@@ -685,15 +680,12 @@
               RF: { x: 85, y: 25 },
             },
             solution: {
-              players: {
-                P: { x: 25, y: 50 }, // Covers 3rd base
-                "1B": { x: 65, y: 50 }, // Covers 1st base
-              },
-              ball: { x: 75, y: 50 }, // Correct throw is to 1B
+              players: { P: { x: 25, y: 50 }, "1B": { x: 65, y: 50 } },
+              ball: { x: 75, y: 50 },
               throwOptions: [
-                { x: 75, y: 50 }, // To 1B (Correct)
-                { x: 50, y: 25 }, // To 2B
-                { x: 25, y: 50 }, // To 3B (where P should be)
+                { x: 75, y: 50 },
+                { x: 50, y: 25 },
+                { x: 25, y: 50 },
               ],
               feedback: {
                 correct:
@@ -726,15 +718,12 @@
               RF: { x: 85, y: 25 },
             },
             solution: {
-              players: {
-                SS: { x: 40, y: 35 }, // Cutoff for third
-                "2B": { x: 60, y: 35 }, // Covers second
-              },
-              ball: { x: 40, y: 35 }, // Throw to cutoff (SS)
+              players: { SS: { x: 40, y: 35 }, "2B": { x: 60, y: 35 } },
+              ball: { x: 40, y: 35 },
               throwOptions: [
-                { x: 40, y: 35 }, // To SS (Correct)
-                { x: 25, y: 50 }, // Directly to 3B
-                { x: 50, y: 92 }, // Directly to Home
+                { x: 40, y: 35 },
+                { x: 25, y: 50 },
+                { x: 50, y: 92 },
               ],
               feedback: {
                 correct:
@@ -771,20 +760,1165 @@
               RF: { x: 85, y: 25 },
             },
             solution: {
-              players: {
-                "2B": { x: 60, y: 40 }, // Fields the ball and throws to SS
-              },
-              ball: { x: 75, y: 50 }, // The SS's throw goes to first
+              players: { "2B": { x: 60, y: 40 } },
+              ball: { x: 75, y: 50 },
               throwOptions: [
-                { x: 75, y: 50 }, // To 1B (Correct)
-                { x: 25, y: 50 }, // To 3B
-                { x: 50, y: 92 }, // To Home
+                { x: 75, y: 50 },
+                { x: 25, y: 50 },
+                { x: 50, y: 92 },
               ],
               feedback: {
                 correct:
                   "That's the inning-ending double play! Your second baseman made the right feed, and you completed the pivot perfectly with a strong throw to first. Great teamwork!",
                 incorrect:
                   "After getting the force at second, the play is always to first base for the double play. There is no force out at third or home, so throwing there would be a mistake.",
+              },
+            },
+          },
+          // --- NEW SCENARIOS ---
+          {
+            info: {
+              inning: "Top 6th",
+              outs: "2",
+              score: "Tied 1-1",
+              runners: "On 1st",
+            },
+            play: {
+              description:
+                "Strike three is in the dirt and gets away from you. The batter runs to first.",
+              userPosition: "C",
+              userPos: { x: 50, y: 92 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              "2B": { x: 60, y: 55 },
+              SS: { x: 40, y: 55 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { "1B": { x: 75, y: 55 } },
+              ball: { x: 75, y: 50 },
+              throwOptions: [
+                { x: 75, y: 50 },
+                { x: 50, y: 25 },
+                { x: 25, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "Excellent awareness! With two outs, the batter can run even if first is occupied. Your job is to get the sure out at first base to end the inning.",
+                incorrect:
+                  "With two outs, the dropped third strike rule allows the batter to advance. Your only play is to get the out at first.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 4th",
+              outs: "0",
+              score: "Home 2 - Away 1",
+              runners: "On 2nd",
+            },
+            play: {
+              description:
+                "A sharp single is hit directly to you. The runner from second is being waved home.",
+              userPosition: "LF",
+              userPos: { x: 15, y: 30 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 50, y: 25 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "2B": { x: 60, y: 55 },
+              RF: { x: 85, y: 25 },
+              CF: { x: 50, y: 10 },
+            },
+            solution: {
+              players: { SS: { x: 40, y: 45 }, "3B": { x: 25, y: 50 } },
+              ball: { x: 50, y: 92 },
+              throwOptions: [
+                { x: 50, y: 92 },
+                { x: 40, y: 45 },
+                { x: 50, y: 25 },
+              ],
+              feedback: {
+                correct:
+                  "Great throw! With a runner trying to score, you have to make a strong, accurate throw home. Your shortstop is in the correct cutoff position in case the throw is off-line.",
+                incorrect:
+                  "While hitting the cutoff man is usually correct, on a single with a runner trying to score from second, the throw must go home. A throw to second concedes the run.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 8th",
+              outs: "1",
+              score: "Away 3 - Home 2",
+              runners: "On 1st & 3rd",
+            },
+            play: {
+              description:
+                "The runner from first is stealing second. The offense is trying to bait a throw.",
+              userPosition: "C",
+              userPos: { x: 50, y: 92 },
+            },
+            initialRunners: [
+              { id: "R1", pos: { x: 75, y: 50 } },
+              { id: "R2", pos: { x: 25, y: 50 } },
+            ],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              "1B": { x: 70, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {
+                "2B": { x: 60, y: 40 },
+                SS: { x: 40, y: 40 },
+                "3B": { x: 25, y: 55 },
+              },
+              ball: { x: 25, y: 55 },
+              throwOptions: [
+                { x: 25, y: 55 },
+                { x: 50, y: 25 },
+                { x: 75, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "Heads up play! You correctly identified the situation. A quick pump fake to second and looking the runner back to third is the smart play. Conceding second is better than letting the tying run score.",
+                incorrect:
+                  "Throwing through to second is exactly what the offense wants. This allows the runner from third to score easily. Never give up the lead run in this situation.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 9th",
+              outs: "1",
+              score: "Tied 4-4",
+              runners: "Bases Loaded",
+            },
+            play: {
+              description:
+                "A slow ground ball is hit right back to you. The winning run is on third.",
+              userPosition: "P",
+              userPos: { x: 50, y: 53 },
+            },
+            initialRunners: [
+              { id: "R1", pos: { x: 75, y: 50 } },
+              { id: "R2", pos: { x: 50, y: 25 } },
+              { id: "R3", pos: { x: 25, y: 50 } },
+            ],
+            staticPlayers: {
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {
+                C: { x: 50, y: 90 },
+                "1B": { x: 75, y: 55 },
+                SS: { x: 40, y: 40 },
+                "2B": { x: 60, y: 40 },
+                "3B": { x: 25, y: 55 },
+              },
+              ball: { x: 50, y: 90 },
+              throwOptions: [
+                { x: 50, y: 90 },
+                { x: 75, y: 55 },
+                { x: 60, y: 40 },
+              ],
+              feedback: {
+                correct:
+                  "Clutch! In a bases loaded, game-on-the-line situation, the play is always home-to-first. You get the force at home to prevent the winning run, then try for the double play.",
+                incorrect:
+                  "Going for the double play up the middle is tempting, but it allows the winning run to score from third. You have to get the force out at home first!",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 7th",
+              outs: "0",
+              score: "Home 1 - Away 0",
+              runners: "On 3rd",
+            },
+            play: {
+              description:
+                "Infield is playing in. A sharp grounder is hit to you.",
+              userPosition: "2B",
+              userPos: { x: 65, y: 58 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 25, y: 50 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 75, y: 60 },
+              SS: { x: 35, y: 58 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {},
+              ball: { x: 50, y: 92 },
+              throwOptions: [
+                { x: 50, y: 92 },
+                { x: 75, y: 50 },
+                { x: 25, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "That's the play! With the infield in, your job is to cut down the run at the plate. A strong throw home is the only option to protect the lead.",
+                incorrect:
+                  "Trading a run for an out is the wrong play here. With the infield in, you are committing to making the play at the plate. Throwing to first concedes the tying run.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 3rd",
+              outs: "1",
+              score: "Tied 0-0",
+              runners: "On 1st",
+            },
+            play: {
+              description:
+                "A blooper is hit into shallow right field. The first baseman is going back, and the right fielder is coming in.",
+              userPosition: "2B",
+              userPos: { x: 60, y: 55 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              SS: { x: 40, y: 55 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+            },
+            solution: {
+              players: { "1B": { x: 80, y: 50 }, RF: { x: 80, y: 40 } },
+              ball: { x: 75, y: 50 },
+              throwOptions: [
+                { x: 75, y: 50 },
+                { x: 50, y: 25 },
+                { x: 80, y: 45 },
+              ],
+              feedback: {
+                correct:
+                  "Excellent communication and responsibility! As the second baseman, your job is to cover first base when the first baseman vacates their position. This prevents the batter from taking an extra base.",
+                incorrect:
+                  "While it's tempting to go for the ball, that is the right fielder's play. If you and the first baseman both go for it, no one is covering first base.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 5th",
+              outs: "0",
+              score: "Away 1 - Home 0",
+              runners: "On 1st",
+            },
+            play: {
+              description:
+                "A hit-and-run is on. The runner from first breaks, and a ground ball is hit right at you.",
+              userPosition: "SS",
+              userPos: { x: 40, y: 55 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { "2B": { x: 55, y: 45 } },
+              ball: { x: 55, y: 45 },
+              throwOptions: [
+                { x: 55, y: 45 },
+                { x: 75, y: 50 },
+                { x: 25, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "Perfect read on the play! On a hit-and-run, the runner gets a huge jump. Your only play is to get the force out at second base and prevent the big inning.",
+                incorrect:
+                  "Throwing to first is the 'safe' play, but it puts runners on second and third with no outs because of the runner's head start. You have to go for the lead runner.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 9th",
+              outs: "2",
+              score: "Home 2 - Away 3",
+              runners: "On 3rd",
+            },
+            play: {
+              description:
+                "The pitch gets by you and goes to the backstop. The runner from third breaks for home!",
+              userPosition: "C",
+              userPos: { x: 50, y: 92 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 25, y: 50 } }],
+            staticPlayers: {
+              "1B": { x: 70, y: 60 },
+              "2B": { x: 60, y: 55 },
+              SS: { x: 40, y: 55 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { P: { x: 50, y: 90 } },
+              ball: { x: 50, y: 90 },
+              throwOptions: [
+                { x: 50, y: 90 },
+                { x: 75, y: 50 },
+                { x: 25, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "That's how you practice it! The pitcher correctly breaks to cover home plate, and you make a quick, accurate toss to get the out and save the game. Great hustle!",
+                incorrect:
+                  "Trying to retrieve the ball and get back to the plate yourself is too slow. The pitcher has responsibility to cover home on a passed ball, and you must trust them to be there.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 4th",
+              outs: "0",
+              score: "Tied 2-2",
+              runners: "On 1st & 2nd",
+            },
+            play: {
+              description:
+                "The batter pops the ball up high in the infield near the mound.",
+              userPosition: "1B",
+              userPos: { x: 70, y: 60 },
+            },
+            initialRunners: [
+              { id: "R1", pos: { x: 75, y: 50 } },
+              { id: "R2", pos: { x: 50, y: 25 } },
+            ],
+            staticPlayers: {
+              C: { x: 50, y: 92 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {
+                P: { x: 55, y: 65 },
+                "3B": { x: 35, y: 65 },
+                SS: { x: 45, y: 45 },
+                "2B": { x: 55, y: 45 },
+              },
+              ball: { x: 70, y: 60 },
+              throwOptions: [
+                { x: 70, y: 60 },
+                { x: 55, y: 60 },
+                { x: 75, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "Good communication! The umpire should call 'Infield Fly, Batter's out!'. Your job is to get back to your base. The runners advance at their own risk.",
+                incorrect:
+                  "This is an Infield Fly Rule situation (runners on 1st and 2nd, less than 2 outs). The batter is automatically out. Do not leave your base unnecessarily.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 1st",
+              outs: "0",
+              score: "Tied 0-0",
+              runners: "On 1st",
+            },
+            play: {
+              description:
+                "A long single is hit into the right-center gap. The runner on 1st will try for third.",
+              userPosition: "RF",
+              userPos: { x: 85, y: 25 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              SS: { x: 40, y: 55 },
+              LF: { x: 15, y: 25 },
+            },
+            solution: {
+              players: { "2B": { x: 70, y: 40 }, CF: { x: 65, y: 15 } },
+              ball: { x: 70, y: 40 },
+              throwOptions: [
+                { x: 70, y: 40 },
+                { x: 25, y: 50 },
+                { x: 50, y: 25 },
+              ],
+              feedback: {
+                correct:
+                  "That's the right play! The second baseman is the correct relay man for a ball in the right-center gap. Hitting him allows for a much stronger and more accurate throw to third.",
+                incorrect:
+                  "A long throw all the way to third base is very difficult and likely to be offline or short. Always use your relay man to keep the double play in order and stop the runners from advancing.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 9th",
+              outs: "1",
+              score: "Home 0 - Away 1",
+              runners: "On 3rd",
+            },
+            play: {
+              description:
+                "The batter squares and bunts as the runner from third breaks for home (suicide squeeze).",
+              userPosition: "1B",
+              userPos: { x: 70, y: 60 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 25, y: 50 } }],
+            staticPlayers: {
+              "2B": { x: 60, y: 55 },
+              SS: { x: 40, y: 55 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { P: { x: 55, y: 75 }, C: { x: 50, y: 88 } },
+              ball: { x: 50, y: 88 },
+              throwOptions: [
+                { x: 50, y: 88 },
+                { x: 75, y: 50 },
+                { x: 50, y: 92 },
+              ],
+              feedback: {
+                correct:
+                  "Correct positioning. On a suicide squeeze, the pitcher must field the ball and flip it to the catcher. Your job is to crash in but be ready for the throw to first if the runner is safe at home.",
+                incorrect:
+                  "You must cover your base. If you try to field the bunt, no one is at first. The pitcher has priority on this play. Get the out at home first!",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 2nd",
+              outs: "1",
+              score: "Tied 1-1",
+              runners: "On 1st",
+            },
+            play: {
+              description:
+                "A hard line drive hits the pitcher's leg and caroms towards you.",
+              userPosition: "3B",
+              userPos: { x: 30, y: 60 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { SS: { x: 45, y: 45 }, "2B": { x: 55, y: 45 } },
+              ball: { x: 55, y: 45 },
+              throwOptions: [
+                { x: 55, y: 45 },
+                { x: 75, y: 50 },
+                { x: 25, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "Incredible reaction! On a broken play like this, you have to find the lead runner. Getting the force out at second is the best possible outcome.",
+                incorrect:
+                  "It's a chaotic play, but the out at first is the secondary option. With the ball right in the middle of the diamond, you should have time to get the lead runner at second base.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 6th",
+              outs: "0",
+              score: "Home 3 - Away 3",
+              runners: "On 1st",
+            },
+            play: {
+              description:
+                "A deep fly ball is hit to the warning track. It may be off the wall.",
+              userPosition: "CF",
+              userPos: { x: 50, y: 10 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {
+                SS: { x: 40, y: 35 },
+                LF: { x: 35, y: 15 },
+                "2B": { x: 60, y: 40 },
+              },
+              ball: { x: 40, y: 35 },
+              throwOptions: [
+                { x: 40, y: 35 },
+                { x: 50, y: 25 },
+                { x: 25, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "That's how you execute a relay. The shortstop is the correct cutoff for a ball to deep center or left-center. Hitting him ensures you keep the batter-runner from advancing and hold the other runner at third.",
+                incorrect:
+                  "A throw all the way to a base is a mistake. The relay system is designed to handle long throws efficiently and prevent extra bases.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 7th",
+              outs: "1",
+              score: "Away 5 - Home 4",
+              runners: "On 3rd",
+            },
+            play: {
+              description:
+                "The runner on third gets caught in a rundown between third and home.",
+              userPosition: "3B",
+              userPos: { x: 25, y: 55 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 35, y: 70 } }],
+            staticPlayers: {
+              "1B": { x: 70, y: 60 },
+              "2B": { x: 60, y: 55 },
+              SS: { x: 40, y: 55 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { P: { x: 40, y: 75 }, C: { x: 50, y: 88 } },
+              ball: { x: 50, y: 88 },
+              throwOptions: [
+                { x: 50, y: 88 },
+                { x: 25, y: 55 },
+                { x: 40, y: 75 },
+              ],
+              feedback: {
+                correct:
+                  "Good fundamentals. In a rundown, run the runner back towards the previous base, but always throw ahead of him to the base he is running towards. Make the runner commit and keep throws to a minimum.",
+                incorrect:
+                  "Don't throw the ball too many times. Run directly at the runner to make them commit to a direction, then make one, decisive throw to the bag ahead of them.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 5th",
+              outs: "1",
+              score: "Home 2 - Away 2",
+              runners: "None",
+            },
+            play: {
+              description:
+                "A sharp line drive is hit down the right field line. It could be a double.",
+              userPosition: "RF",
+              userPos: { x: 85, y: 25 },
+            },
+            initialRunners: [],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "3B": { x: 30, y: 60 },
+              SS: { x: 40, y: 55 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+            },
+            solution: {
+              players: { "1B": { x: 80, y: 50 }, "2B": { x: 70, y: 40 } },
+              ball: { x: 70, y: 40 },
+              throwOptions: [
+                { x: 70, y: 40 },
+                { x: 50, y: 25 },
+                { x: 75, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "Textbook play. For a ball down the right field line, the second baseman is the proper cutoff. This play keeps the batter from turning a single into a double.",
+                incorrect:
+                  "The first baseman is not the cutoff man on this play. Always get the ball to your relay (the 2B) to keep the runner honest.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 9th",
+              outs: "2",
+              score: "Away 1 - Home 0",
+              runners: "None",
+            },
+            play: {
+              description:
+                "A very slow roller is hit towards you. You need to be quick to get the out.",
+              userPosition: "SS",
+              userPos: { x: 40, y: 55 },
+            },
+            initialRunners: [],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "2B": { x: 60, y: 55 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { "1B": { x: 75, y: 55 } },
+              ball: { x: 75, y: 55 },
+              throwOptions: [
+                { x: 75, y: 55 },
+                { x: 50, y: 25 },
+                { x: 25, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "That's a tough play made to look easy. On a slow roller, you have to charge the ball, field it barehanded or with a quick glove-to-hand transfer, and make a strong throw to first to get the runner.",
+                incorrect:
+                  "Sitting back on this ball will allow the runner to beat the throw. This is a 'do-or-die' play where you must be aggressive to get the out.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 6th",
+              outs: "1",
+              score: "Tied 3-3",
+              runners: "On 1st",
+            },
+            play: {
+              description:
+                "The pitch is in the dirt and blocked, but the runner on first takes off for second.",
+              userPosition: "C",
+              userPos: { x: 50, y: 92 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { SS: { x: 45, y: 45 }, "2B": { x: 55, y: 45 } },
+              ball: { x: 50, y: 25 },
+              throwOptions: [
+                { x: 50, y: 25 },
+                { x: 75, y: 50 },
+                { x: 25, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "Great recovery! After blocking the pitch, you came up firing and made a strong throw to second base. The shortstop correctly covers the bag on a steal attempt.",
+                incorrect:
+                  "Even after a block, you have to assume the runner is going. Be quick to your feet and make the throw. Hesitation gives the runner a free base.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 2nd",
+              outs: "2",
+              score: "Home 5 - Away 0",
+              runners: "Bases Loaded",
+            },
+            play: {
+              description:
+                "A routine, high fly ball is hit to you to end the inning.",
+              userPosition: "LF",
+              userPos: { x: 15, y: 25 },
+            },
+            initialRunners: [
+              { id: "R1", pos: { x: 75, y: 50 } },
+              { id: "R2", pos: { x: 50, y: 25 } },
+              { id: "R3", pos: { x: 25, y: 50 } },
+            ],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "2B": { x: 60, y: 55 },
+              "3B": { x: 30, y: 60 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { SS: { x: 40, y: 40 }, CF: { x: 35, y: 15 } },
+              ball: { x: 15, y: 25 },
+              throwOptions: [
+                { x: 15, y: 25 },
+                { x: 50, y: 25 },
+                { x: 50, y: 92 },
+              ],
+              feedback: {
+                correct:
+                  "Correct. The most important play is the one you're supposed to make. On a routine fly with two outs, just catch the ball. No throw is necessary.",
+                incorrect:
+                  "There is no reason to throw the ball anywhere. Catching the ball is the third out, which ends the inning. An unnecessary throw risks an error.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 7th",
+              outs: "1",
+              score: "Tied 1-1",
+              runners: "On 2nd",
+            },
+            play: {
+              description:
+                "A wild pitch goes to the backstop. The runner on second advances to third.",
+              userPosition: "C",
+              userPos: { x: 50, y: 92 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 50, y: 25 } }],
+            staticPlayers: {
+              "1B": { x: 70, y: 60 },
+              "2B": { x: 60, y: 55 },
+              SS: { x: 40, y: 55 },
+              RF: { x: 85, y: 25 },
+              CF: { x: 50, y: 10 },
+              LF: { x: 15, y: 25 },
+            },
+            solution: {
+              players: { P: { x: 40, y: 75 }, "3B": { x: 25, y: 50 } },
+              ball: { x: 25, y: 50 },
+              throwOptions: [
+                { x: 25, y: 50 },
+                { x: 50, y: 25 },
+                { x: 50, y: 92 },
+              ],
+              feedback: {
+                correct:
+                  "Good hustle! On a wild pitch, you have to get to the ball quickly and make a throw to third to have any chance. The pitcher correctly backs up the base to prevent an overthrow.",
+                incorrect:
+                  "Holding the ball concedes the base. While the runner has a good chance of being safe, you must make the throw to keep the offense honest and have a chance at an out.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 5th",
+              outs: "1",
+              score: "Home 2 - Away 1",
+              runners: "On 1st (fast runner)",
+            },
+            play: {
+              description:
+                "The pitcher wheels and throws to you for a pickoff attempt. The runner dives back.",
+              userPosition: "1B",
+              userPos: { x: 70, y: 60 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "3B": { x: 30, y: 60 },
+              SS: { x: 40, y: 55 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+            },
+            solution: {
+              players: { "2B": { x: 65, y: 45 }, RF: { x: 80, y: 40 } },
+              ball: { x: 75, y: 50 },
+              throwOptions: [
+                { x: 75, y: 50 },
+                { x: 50, y: 25 },
+                { x: 50, y: 53 },
+              ],
+              feedback: {
+                correct:
+                  "Solid defense. Your job is to catch the ball and apply a quick tag. Your second baseman and right fielder are in the correct positions to back up the play in case of an overthrow.",
+                incorrect:
+                  "Your only play is to tag the runner. There is no reason to throw the ball anywhere else. Secure the ball first, then make the tag.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 1st",
+              outs: "1",
+              score: "Tied 0-0",
+              runners: "None",
+            },
+            play: {
+              description:
+                "Ground ball hit in the hole between you and 3B. You make a backhanded stop.",
+              userPosition: "SS",
+              userPos: { x: 40, y: 55 },
+            },
+            initialRunners: [],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "2B": { x: 60, y: 55 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { "1B": { x: 75, y: 55 } },
+              ball: { x: 75, y: 55 },
+              throwOptions: [
+                { x: 75, y: 55 },
+                { x: 50, y: 25 },
+                { x: 25, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "Amazing play! After a dive, you have to gather yourself and make a strong, accurate throw to first base. That's a web gem.",
+                incorrect:
+                  "There's no other play here. The only option is to try for the out at first. It's a tough play, but it's the right one.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 8th",
+              outs: "0",
+              score: "Home 2 - Away 2",
+              runners: "On 1st",
+            },
+            play: {
+              description:
+                "Bunt is laid down the first base line. You must field it.",
+              userPosition: "P",
+              userPos: { x: 50, y: 53 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
+            staticPlayers: {
+              C: { x: 50, y: 92 },
+              "3B": { x: 30, y: 60 },
+              SS: { x: 40, y: 55 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { "1B": { x: 80, y: 65 }, "2B": { x: 75, y: 55 } },
+              ball: { x: 50, y: 25 },
+              throwOptions: [
+                { x: 50, y: 25 },
+                { x: 75, y: 50 },
+                { x: 80, y: 65 },
+              ],
+              feedback: {
+                correct:
+                  "Smart baseball. The lead runner is the priority. Getting the force at second base is always the goal on a sacrifice bunt.",
+                incorrect:
+                  "Getting the out at first is easy, but it lets the opponent achieve their goal of advancing the runner. Always look for the lead runner first.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 2nd",
+              outs: "1",
+              score: "Away 1 - Home 0",
+              runners: "None",
+            },
+            play: {
+              description:
+                "A high pop-up is hit behind the plate. You throw your mask off to find it.",
+              userPosition: "C",
+              userPos: { x: 50, y: 92 },
+            },
+            initialRunners: [],
+            staticPlayers: {
+              "2B": { x: 60, y: 55 },
+              SS: { x: 40, y: 55 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {
+                P: { x: 50, y: 80 },
+                "1B": { x: 65, y: 80 },
+                "3B": { x: 35, y: 80 },
+              },
+              ball: { x: 50, y: 92 },
+              throwOptions: [
+                { x: 50, y: 92 },
+                { x: 75, y: 50 },
+                { x: 25, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "Great job locating the ball! Your pitcher and corner infielders are correctly positioned to call out directions and avoid collisions. The play is simply to catch the ball.",
+                incorrect:
+                  "Your only job is to catch the ball. No throw is needed. Rely on your teammates to help you locate it in the air.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 6th",
+              outs: "0",
+              score: "Tied 3-3",
+              runners: "On 2nd",
+            },
+            play: {
+              description:
+                "The batter hits a ground ball to the shortstop, who bobbles it. The runner from 2nd tries for third.",
+              userPosition: "LF",
+              userPos: { x: 15, y: 25 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 50, y: 25 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "2B": { x: 60, y: 55 },
+              "3B": { x: 30, y: 60 },
+              SS: { x: 40, y: 55 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: {},
+              ball: { x: 25, y: 50 },
+              throwOptions: [
+                { x: 25, y: 50 },
+                { x: 50, y: 25 },
+                { x: 75, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "Perfect backup! Your job on any ball hit to the left side is to back up third base. You are in the perfect position for an overthrow from the shortstop.",
+                incorrect:
+                  "Don't just watch the play. As an outfielder, you are always backing up a base or another player. On a ball to the SS, your responsibility is third base.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 7th",
+              outs: "2",
+              score: "Home 1 - Away 1",
+              runners: "On 2nd",
+            },
+            play: {
+              description:
+                "A gapper is hit to deep right-center. The runner on 2nd will score, but you can keep it a double.",
+              userPosition: "2B",
+              userPos: { x: 60, y: 55 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 50, y: 25 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              SS: { x: 40, y: 55 },
+              LF: { x: 15, y: 25 },
+            },
+            solution: {
+              players: { CF: { x: 65, y: 15 }, RF: { x: 80, y: 20 } },
+              ball: { x: 70, y: 40 },
+              throwOptions: [
+                { x: 70, y: 40 },
+                { x: 50, y: 25 },
+                { x: 50, y: 92 },
+              ],
+              feedback: {
+                correct:
+                  "Correct. Your responsibility is to be the relay man for the throw from the outfield. This keeps the batter at second and prevents a triple.",
+                incorrect:
+                  "The shortstop covers the bag. As the second baseman, your job on a ball to the right side of the field is to be the cutoff man.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 1st",
+              outs: "0",
+              score: "Tied 0-0",
+              runners: "None",
+            },
+            play: {
+              description:
+                "Ground ball hit right up the middle, just to your right.",
+              userPosition: "P",
+              userPos: { x: 50, y: 53 },
+            },
+            initialRunners: [],
+            staticPlayers: {
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { SS: { x: 45, y: 45 }, "2B": { x: 55, y: 45 } },
+              ball: { x: 50, y: 53 },
+              throwOptions: [
+                { x: 50, y: 53 },
+                { x: 45, y: 45 },
+                { x: 55, y: 45 },
+              ],
+              feedback: {
+                correct:
+                  "Good decision. Let your middle infielders make that play. It's the shortstop's ball, and trying to field it yourself often leads to errors or getting in the way.",
+                incorrect:
+                  "Unless the ball is hit very slowly right at you, it's almost always better to let your shortstop or second baseman field a ball up the middle. They have a better angle to throw to first.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 5th",
+              outs: "1",
+              score: "Home 2 - Away 3",
+              runners: "On 3rd",
+            },
+            play: {
+              description:
+                "A fly ball is hit to medium deep center field. The runner on 3rd will tag.",
+              userPosition: "SS",
+              userPos: { x: 40, y: 55 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 25, y: 50 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { "2B": { x: 60, y: 40 } },
+              ball: { x: 45, y: 70 },
+              throwOptions: [
+                { x: 45, y: 70 },
+                { x: 50, y: 25 },
+                { x: 25, y: 50 },
+              ],
+              feedback: {
+                correct:
+                  "Exactly right. As the shortstop, you are the cutoff man for a throw from center field to home plate. This is a critical defensive alignment.",
+                incorrect:
+                  "The second baseman covers the bag. Your responsibility on a throw from center is to be the cutoff for home plate.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Top 10th",
+              outs: "0",
+              score: "Tied 2-2",
+              runners: "On 1st & 2nd (runner starts on 2B)",
+            },
+            play: {
+              description:
+                "The batter shows bunt. You are crashing from your position.",
+              userPosition: "3B",
+              userPos: { x: 30, y: 60 },
+            },
+            initialRunners: [
+              { id: "R1", pos: { x: 75, y: 50 } },
+              { id: "R2", pos: { x: 50, y: 25 } },
+            ],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "2B": { x: 60, y: 55 },
+              RF: { x: 85, y: 25 },
+              CF: { x: 50, y: 10 },
+              LF: { x: 15, y: 25 },
+            },
+            solution: {
+              players: { SS: { x: 25, y: 50 } },
+              ball: { x: 25, y: 50 },
+              throwOptions: [
+                { x: 25, y: 50 },
+                { x: 75, y: 50 },
+                { x: 50, y: 25 },
+              ],
+              feedback: {
+                correct:
+                  "That's the play! In an extra-inning bunt situation, getting the lead runner at third is the absolute priority to prevent the go-ahead run from getting into scoring position.",
+                incorrect:
+                  "Getting an out at first is the safe play but not the right one. You must try to get the lead runner at third to keep the game tied.",
+              },
+            },
+          },
+          {
+            info: {
+              inning: "Bot 4th",
+              outs: "2",
+              score: "Home 0 - Away 0",
+              runners: "On 1st",
+            },
+            play: {
+              description:
+                "The runner on first is attempting to steal second on the pitch.",
+              userPosition: "2B",
+              userPos: { x: 60, y: 55 },
+            },
+            initialRunners: [{ id: "R1", pos: { x: 75, y: 50 } }],
+            staticPlayers: {
+              P: { x: 50, y: 53 },
+              C: { x: 50, y: 92 },
+              "1B": { x: 70, y: 60 },
+              "3B": { x: 30, y: 60 },
+              LF: { x: 15, y: 25 },
+              CF: { x: 50, y: 10 },
+              RF: { x: 85, y: 25 },
+            },
+            solution: {
+              players: { SS: { x: 50, y: 40 } },
+              ball: { x: 50, y: 25 },
+              throwOptions: [
+                { x: 50, y: 25 },
+                { x: 75, y: 50 },
+                { x: 50, y: 92 },
+              ],
+              feedback: {
+                correct:
+                  "Correct positioning. The shortstop covers on a steal, but your job is to back them up from behind the base in case of a bad throw from the catcher.",
+                incorrect:
+                  "It's the shortstop's job to cover the bag on a steal attempt. Your role is to be the backup on the play.",
               },
             },
           },
